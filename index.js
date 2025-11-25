@@ -1,5 +1,7 @@
 //import the express module
 const express = require('express');
+const helloRoute = require('./routes/hello');
+const mongoose = require('mongoose');
 
 //Define the port number the server will listen on
 const PORT = 2000;
@@ -8,9 +10,14 @@ const PORT = 2000;
 //because it give us the starting point
 
 const app = express();
+// mongodb string
+const DB = "mongodb+srv://malikrida406:BXpc6GlweqvJCDXU@cluster0.btmmmqd.mongodb.net/?appName=Cluster0"
 
-app.get("/hello",(req, res)=>{
-    res.send('Hello world');
+//middleware - to register routes or to mount routes
+app.use(helloRoute);
+
+mongoose.connect(DB).then(()=>{
+    console.log('Mongodb Connected');
 });
 
 //start the server and listen on the specified port
