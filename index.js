@@ -1,7 +1,8 @@
 //import the express module
 const express = require('express');
-const helloRoute = require('./routes/hello');
+
 const mongoose = require('mongoose');
+const authRouter = require('./routes/auth');
 
 //Define the port number the server will listen on
 const PORT = 2000;
@@ -12,9 +13,10 @@ const PORT = 2000;
 const app = express();
 // mongodb string
 const DB = "mongodb+srv://malikrida406:BXpc6GlweqvJCDXU@cluster0.btmmmqd.mongodb.net/?appName=Cluster0"
-
 //middleware - to register routes or to mount routes
-app.use(helloRoute);
+
+app.use(express.json());
+app.use(authRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log('Mongodb Connected');
