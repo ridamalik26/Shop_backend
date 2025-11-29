@@ -1,9 +1,8 @@
 //import the express module
 const express = require('express');
-
 const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
-
+const bannerRouter = require('./routes/banner');
 //Define the port number the server will listen on
 const PORT = 2000;
 
@@ -17,6 +16,7 @@ const DB = "mongodb+srv://malikrida406:BXpc6GlweqvJCDXU@cluster0.btmmmqd.mongodb
 
 app.use(express.json());
 app.use(authRouter);
+app.use(bannerRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log('Mongodb Connected');
