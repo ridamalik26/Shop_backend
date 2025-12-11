@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
 const bannerRouter = require('./routes/banner');
 const categoryRouter = require('./routes/category');
+const subCategoryRouter = require('./routes/sub_category');
 //Define the port number the server will listen on
 const PORT = 2000;
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(bannerRouter);
 app.use(categoryRouter);
+app.use(subCategoryRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log('Mongodb Connected');
