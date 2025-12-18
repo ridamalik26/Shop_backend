@@ -16,7 +16,7 @@ const PORT = 2000;
 
 const app = express();
 // mongodb string
-const DB = "mongodb+srv://malikrida406:BXpc6GlweqvJCDXU@cluster0.btmmmqd.mongodb.net/?appName=Cluster0"
+const DB = "xx"
 //middleware - to register routes or to mount routes
 
 app.use(express.json());
