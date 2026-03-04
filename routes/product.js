@@ -4,11 +4,14 @@ const productRouter = express.Router();
 
 productRouter.post('/api/add-product', async(req, res) =>{
     try {
+        console.log("BODY RECEIVED:", req.body);
        const {productName, productPrice, quantity, description, category, vendorId,fullName, subCategory, images} = req.body;
        const product = new Product({productName, productPrice, quantity, description, category, vendorId, fullName, subCategory, images});
        await product.save();
+       console.log("PRODUCT SAVED");
        return res.status(201).send(product);
     } catch (e) {
+        console.log("ERROR:", e);
         res.status(500).json({error:e.message});
     }
 });
@@ -19,7 +22,7 @@ productRouter.get('/api/popular-products', async(req, res)=>{
         if(!product || product.length==0){
             return res.status(404).json({msg:"products not found"});
         }else{
-            return res.status(200).json({product});
+            return res.status(200).json(product);
         }
     } catch (e) {
         res.status(500).json({error:e.message});
