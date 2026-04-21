@@ -30,7 +30,7 @@ const orderSchema = mongoose.Schema({
         required:true,
     },
     productPrice:{
-        type:String,
+        type:Number,
         required:true,
     },
     category:{
@@ -48,6 +48,14 @@ const orderSchema = mongoose.Schema({
     vendorId:{
         type:String,
         required:true,
+    },
+    processing:{
+        type:Boolean,
+        default:true,
+    },
+    delivered:{
+        type:Boolean,
+        default:false,
     },
     createdAt:{
         type:Number,

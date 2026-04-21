@@ -4,8 +4,24 @@ const orderRouter = express.Router();
 
 orderRouter.post('/api/orders', async (req, res) => {
     try {
-        const { fullName, email, state, city, locality, productName, quantity, productPrice, category, image, buyerId, vendorId } = req.body;
-        const order = new Order({ fullName, email, state, city, locality, productName, quantity, productPrice, category, image, buyerId, vendorId, createdAt: Date.now() });
+        const { 
+            fullName,
+            email,
+            state,
+            city,
+            locality,
+            productName,
+            quantity,
+            productPrice,
+            category, 
+            image, 
+            buyerId, 
+            vendorId 
+        } = req.body;
+
+        const createdAt = new Date().getMilliseconds()
+
+        const order = new Order({ fullName, email, state, city, locality, productName, quantity, productPrice, category, image, buyerId, vendorId, createdAt});
         await order.save();
         return res.status(201).send(order);
     } catch (e) {
