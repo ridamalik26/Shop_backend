@@ -47,5 +47,29 @@ authRouter.post('/api/signin', async(req, res)=>{
         res.status(500).json({error:e.message});
     }
 });
+ //put route for updating user's state, city, locality
+
+ authRouter.put('/api/users/:id',async (req, res)=>{
+    try {
+        //Extract the 'id' parameter from the request URL
+        const{id} = req.params;
+        //Extract the "state","city,"loavlity feilds from the request body
+        const {state, city, locality} = req.body;
+        //find the user by their id upadte the state, city and locality
+        //the (the:true) option ensures the updated document is returned
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            {state, city, locality},
+            {new:true},
+        );
+        // if no user is found, return 4040 page not found status with an error message
+        if(!updatedUser){
+            return res.status(404).json({error: "User not found"});
+        }
+        return res.status(200).json(updatedUser);
+    } catch (error) {
+        
+    }
+ });
 
 module.exports = authRouter;
