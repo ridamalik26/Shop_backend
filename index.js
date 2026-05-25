@@ -1,4 +1,5 @@
 //import the express module
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
@@ -10,15 +11,13 @@ const productReviewRouter = require('./routes/product_review');
 const vendorRouter = require('./routes/vendors');
 const orderRouter = require('./routes/order');
 const cors = require('cors');
-//Define the port number the server will listen on
-const PORT = 2000;
 
-//create an instance of an express application
-//because it give us the starting point
+// const PORT = process.env.PORT || 2001;
+const PORT = 2001;
+
+const DB = process.env.MONGO_URI;
 
 const app = express();
-// mongodb string
-const DB = "mongodb+srv://malikrida406:BXpc6GlweqvJCDXU@cluster0.btmmmqd.mongodb.net/?appName=Cluster0"
 //middleware - to register routes or to mount routes
 
 app.use(express.json());

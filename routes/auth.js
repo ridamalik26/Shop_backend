@@ -35,7 +35,7 @@ authRouter.post('/api/signin', async(req, res)=>{
            if(!isMatch){
             return res.status(400).json({msg: 'Incorrect Password'});
            }else{
-            const token = jwt.sign({id: findUser._id}, "PasswordKey");
+            const token = jwt.sign({id: findUser._id}, process.env.JWT_SECRET);
             //remove sensitive information
             const {password, ...userWithoutPassword } = findUser._doc;
             //send the response
@@ -68,7 +68,7 @@ authRouter.post('/api/signin', async(req, res)=>{
         }
         return res.status(200).json(updatedUser);
     } catch (error) {
-        
+        res.status(500).json({ error: error.message });
     }
  });
 

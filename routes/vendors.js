@@ -35,7 +35,7 @@ vendorRouter.post('/api/vendor/signin', async(req, res)=>{
            if(!isMatch){
             return res.status(400).json({msg: 'Incorrect Password'});
            }else{
-            const token = jwt.sign({id: findVendor._id}, "PasswordKey");
+            const token = jwt.sign({id: findVendor._id}, process.env.JWT_SECRET);
             //remove sensitive information
             const {password, ...vendorWithoutPassword } = findVendor._doc;
             //send the response
