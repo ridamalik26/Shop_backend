@@ -90,7 +90,7 @@ orderRouter.get('/api/orders/:buyerId',async(req,res)=>{
         //Extract the buyerid from the request parameters
         const {buyerId} = req.params;
         //Find all orders in the database that match the buyerId
-        await Order.find({buyerId});
+        const orders = await Order.find({buyerId});
         //if no orders are found, return a 404 status with a message
         if(orders.length ==0){
             return res.status(404).json({msg: "No Orders found for this buyer"});
@@ -99,7 +99,24 @@ orderRouter.get('/api/orders/:buyerId',async(req,res)=>{
         return res.status(200).json(orders);
     } catch (error) {
         //handle any errors that occure during the order retrieval proccess
-        res.status(500).json({error:e.message});
+        res.status(500).json({error:error.message});
+    }
+});
+
+//delete route 
+orderRouter.delete("/api/orders/:id", async(req,res)=>{
+    try {
+        //extract the id from the req parameter
+        const{id} = req.params;
+        //find and delete the order from teh databse using the extract _id
+        const deletedOrder = await Order.findByIdAndDelete(id);
+        if(!deletedOrder){
+            return res.status(404).json({msg:"Order not Found"});
+        }else{
+            return res.status(200).json({msg:"Order was deleted successfully"})
+        }
+    } catch (error) {
+        res.status(500).json({error:error.message});
     }
 });
 

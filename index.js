@@ -29,7 +29,7 @@ app.use(subCategoryRouter);
 app.use(productRouter);
 app.use(productReviewRouter);
 app.use(vendorRouter);
-app.use(orderRouter);
+app.use('/', orderRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log('Mongodb Connected');
