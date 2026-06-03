@@ -120,4 +120,17 @@ orderRouter.delete("/api/orders/:id", async(req,res)=>{
     }
 });
 
+orderRouter.get('/api/orders/:vendorId', async (req, res) => {
+    try {
+        const { vendorId } = req.params;
+        const orders = await Order.find({ vendorId });
+        if (!orders || orders.length == 0) {
+            return res.status(404).json({ msg: "No orders found" });
+        }
+        return res.status(200).json(orders);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 module.exports = orderRouter;
