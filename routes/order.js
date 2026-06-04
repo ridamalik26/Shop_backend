@@ -29,31 +29,7 @@ orderRouter.post('/api/orders', async (req, res) => {
     }
 });
 
-orderRouter.get('/api/orders/:buyerId', async (req, res) => {
-    try {
-        const { buyerId } = req.params;
-        const orders = await Order.find({ buyerId });
-        if (!orders || orders.length == 0) {
-            return res.status(404).json({ msg: "No orders found" });
-        }
-        return res.status(200).json(orders);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
 
-orderRouter.get('/api/vendor-orders/:vendorId', async (req, res) => {
-    try {
-        const { vendorId } = req.params;
-        const orders = await Order.find({ vendorId });
-        if (!orders || orders.length == 0) {
-            return res.status(404).json({ msg: "No orders found" });
-        }
-        return res.status(200).json(orders);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
 
 orderRouter.put('/api/orders/:id/status', async (req, res) => {
     try {
@@ -67,18 +43,6 @@ orderRouter.put('/api/orders/:id/status', async (req, res) => {
             return res.status(404).json({ msg: "Order not found" });
         }
         return res.status(200).json(order);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
-
-orderRouter.delete('/api/delete-order/:id', async (req, res) => {
-    try {
-        const order = await Order.findByIdAndDelete(req.params.id);
-        if (!order) {
-            return res.status(404).json({ msg: "Order not found" });
-        }
-        return res.status(200).json({ msg: "Order deleted successfully" });
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
@@ -120,7 +84,7 @@ orderRouter.delete("/api/orders/:id", async(req,res)=>{
     }
 });
 
-orderRouter.get('/api/orders/:vendorId', async (req, res) => {
+orderRouter.get('/api/orders/vendors/:vendorId', async (req, res) => {
     try {
         const { vendorId } = req.params;
         const orders = await Order.find({ vendorId });
