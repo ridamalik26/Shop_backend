@@ -100,7 +100,7 @@ orderRouter.get('/api/orders/vendors/:vendorId', async (req, res) => {
  orderRouter.patch('/api/orders/:id/delivered', async(req, res) =>{
     try {
         const {id} = req.params;
-        const updatedOrder = await Order.findByIdAndUpdate(id,{delivered:true}, {new:true},
+        const updatedOrder = await Order.findByIdAndUpdate(id,{delivered:true, processing:false }, {new:true},
             {new:true}
 
         );
@@ -119,7 +119,7 @@ orderRouter.get('/api/orders/vendors/:vendorId', async (req, res) => {
   orderRouter.patch('/api/orders/:id/processing', async(req, res) =>{
     try {
         const {id} = req.params;
-        const updatedOrder = await Order.findByIdAndUpdate(id,{processing:false}, {new:true},
+        const updatedOrder = await Order.findByIdAndUpdate(id,{processing:false, delivered:false}, {new:true},
             {new:true}
 
         );
