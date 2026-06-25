@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const Vendor = require('../models/vendors');
 const bcrypt = require('bcryptjs');
 const authRouter = express.Router();
 const jwt = require('jsonwebtoken');
@@ -79,6 +80,15 @@ authRouter.get('/api/users',async(req,res)=>{
     }catch(e){
         res.status(500).json({error:e.message});
     }
+});
+//fetch all vendors(exclude password)
+authRouter.get('/api/vendors', async(req,res)=>{
+  try {
+    const vendors = await Vendor.find().select('-password'); //Exclude password field
+    return res.status(200).json(vendors);
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = authRouter;
