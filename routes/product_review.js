@@ -16,7 +16,7 @@ productReviewRouter.post('/api/product-review', async (req, res) => {
         } = req.body;
         const existingReview = await ProductReview.findOne({buyerId, productId});
         if(existingReview){
-            return res.status(400).json({msg:"You have already reviewed this product "})
+            return res.status(400).json({msg:"You have already reviewed this product "});
         }
         const reviews = new ProductReview({
             buyerId,

@@ -72,4 +72,13 @@ authRouter.post('/api/signin', async(req, res)=>{
     }
  });
 
+authRouter.get('/api/users',async(req,res)=>{
+    try {
+        const users = await User.find().select('-password');
+        return res.status(200).json(users);
+    }catch(e){
+        res.status(500).json({error:e.message});
+    }
+});
+
 module.exports = authRouter;
